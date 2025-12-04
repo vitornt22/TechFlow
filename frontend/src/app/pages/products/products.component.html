@@ -1,0 +1,57 @@
+<div class="container">
+	<!-- Navbar -->
+	<nav class="navbar">
+		<h1 class="title">Produtos</h1>
+		<button class="btn btn-logout" (click)="logout()">Logout</button>
+	</nav>
+
+	<div class="content">
+		<!-- Formulário de produto -->
+		<div class="form-container">
+			<h2>{{ isEditing ? 'Editar Produto' : 'Adicionar Produto' }}</h2>
+			<div class="form-group">
+				<input type="text" [(ngModel)]="currentProduct.name" placeholder="Nome" />
+				<input type="text" [(ngModel)]="currentProduct.brand" placeholder="Marca" />
+				<input type="number" [(ngModel)]="currentProduct.value" placeholder="Valor" />
+				<input type="number" [(ngModel)]="currentProduct.value" placeholder="Valor" />
+
+				<button (click)="addOrUpdateProduct()">
+					{{ isEditing ? 'Atualizar' : 'Adicionar' }}
+				</button>
+			</div>
+		</div>
+
+		<!-- Barra de pesquisa -->
+		<div class="search-bar">
+			<input type="text" [(ngModel)]="searchTerm" placeholder="Pesquisar produtos..." />
+		</div>
+
+		<!-- Tabela de produtos -->
+		<div class="table-container">
+			<table>
+				<thead>
+					<tr>
+						<th>Nome</th>
+						<th>Marca</th>
+						<th>Valor</th>
+						<th>Ações</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let product of filteredProducts()">
+						<td>{{ product.name }}</td>
+						<td>{{ product.brand }}</td>
+						<td>R$ {{ product.value }}</td>
+						<td>
+							<button class="btn btn-edit" (click)="editProduct(product)">Editar</button>
+							<button class="btn btn-delete" (click)="deleteProduct(product.id)">Excluir</button>
+						</td>
+					</tr>
+					<tr *ngIf="filteredProducts().length === 0">
+						<td colspan="4" class="empty">Nenhum produto encontrado.</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
